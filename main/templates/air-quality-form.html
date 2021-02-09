@@ -1,40 +1,85 @@
 <div id="air-quality-form" class="create_apiary">
-    <div class="modal-content animate">
-      <div class="imgcontainer">
-        <div>
-          <span onclick="document.getElementById('air-quality-form').style.display='none'" class="close"
-            title="Close Modal">&times;</span>
-        </div>
+  <div class="modal-content animate">
+    <div class="imgcontainer">
+      <div>
+        <span onclick="document.getElementById('air-quality-form').style.display='none'" class="close"
+          title="Close Modal">&times;</span>
       </div>
-      <br>
-      <form class="modal-content-create animate" action="" method="post">
-        <div class="container">
-          <img src="images/ava.jpg" alt="Avatar" style="width:100px;height:100px;">
-          <br>
-          <label for=" code postal : "><b>code postal :</b></label><br>
-          <input type=" text" placeholder="position of apiary" value="" name="Code_postal" required> <br>
-
-          <label for="Date_init : "><b>Date Init</b></label> <br>
-          <input type="date" value="" name="Date_init" required> <br> <br>
-
-          <label for="Temperature "><b>Temperature</b></label> <br>
-          <label for="H_temps">Temps haut</label>
-          <input type="text" value="37" name="H_temps" required><br>
-          <label for="L_temps">Temps bas</label>
-          <input type="text" value="27" name="L_temps" required> <br><br>
-
-          <label for="Humidity "><b>Humidity</b></label> <br>
-          <label for="H_Humid">Humid haut</label>
-          <input type="text" value="70" name="H_Humid" required><br>
-          <label for="L_Humid">Humid bas</label>
-          <input type="text" value="40" name="L_Humid" required> <br><br>
-
-        </div>
-        <div class="container" style="background-color:#f1f1f1">
-          <button type="submit" class="button_create" name="submit" value="Submit">Create</button>
-          <button type="button" onclick="document.getElementById('air-quality-form').style.display='none'"
-            class="cancelbtn">Cancel</button>
-        </div>
-      </form>
     </div>
+    <br>
+    <form class="modal-content-create animate" action="" method="post">
+      <div class="container">
+        <img src="images/ava.jpg" alt="Avatar" style="width:100px;height:100px;">
+        <br>
+        <label for=" code postal : "><b>code postal :</b></label><br>
+        <input type=" text" placeholder="position of apiary" value="" id="postal_code_elem" onchange="updateAirData()"
+          required> <br>
+
+        <label for="Date_init : "><b>Date Init</b></label> <br>
+        <input type="date" value="" name="Date_init" required> <br> <br>
+
+        <table id="air_table_elem">
+          <!-- here goes our data! -->
+        </table>
+
+      </div>
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('air-quality-form').style.display='none'"
+          class="cancelbtn">Cancel</button>
+      </div>
+    </form>
   </div>
+</div>
+<script>
+  async function getAirData(postalCode) {
+    const ret = await fetch('/api/v1/air?' + new URLSearchParams({
+      postalCode: postalCode
+    }))
+    return ret.json()
+  }
+
+  async function updateAirData() {
+    // clear data
+
+    // get air data
+    const postalCode = document.getElementById('postal_code_elem').value
+    if (!postalCode || postalCode === '') {
+      return
+    }
+    res = await getAirData(postalCode)
+    updateAirTable(res)
+  }
+
+  function generateTableHead(table, data) {
+    let thead = table.createTHead();
+    let row = thead.insertRow();
+    for (let key of data) {
+      let th = document.createElement("th");
+      let text = document.createTextNode(key);
+      th.appendChild(text);
+      row.appendChild(th);
+    }
+  }
+
+  function generateTable(table, data) {
+    for (let element of data) {
+      let row = table.insertRow();
+      for (key in element) {
+        let cell = row.insertCell();
+        let text = document.createTextNode(element[key]);
+        cell.appendChild(text);
+      }
+    }
+  }
+
+  function updateAirTable(data) {
+    let table = document.getElementById('air_table_elem')
+    table.innerHTML = '';
+    if (!data || data.length === 0) {
+      return
+    }
+    let columns = Object.keys(data[0]);
+    generateTableHead(table, columns);
+    generateTable(table, data);
+  }
+</script>

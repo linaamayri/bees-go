@@ -12,7 +12,7 @@ def index():
 @main.route("/installation")
 def installation():
     return render_template("installation.html")
-    
+
 @main.route("/predateurs")
 def predateurs():
     return render_template("predateurs.html")
@@ -25,9 +25,32 @@ def recolte():
 def about():
     return "All about Flask"
 
+@main.route("/api/v1/air")
+def get_air():
+    postal_code = int(request.args.get('postalCode'))
+    res = read_air_data(postal_code)
+    return jsonify(res)
+
+def read_air_data(postal_code):
+    print("I love lina")
+    print(type(postal_code))
+    data = pd.read_csv(str(pathlib.Path(__file__).parent.absolute()) + "/air.csv", sep=",")
+    res = []
+    for i in range(len(data.ninsee)):
+        if data.ninsee[i] == postal_code:
+            res.append({
+                "date": str(data.date[i]),
+                "postalCode": int(data.ninsee[i]),
+                "no2": int(data.no2[i]),
+                "o3": int(data.o3[i]),
+                "pm10": int(data.pm10[i])
+            })
+    return res
+
+
 @main.route("/api/v1/info")
 def get_info():
-    res = read_data()
+    res = read_temperature_data()
     if res == None: 
         return jsonify()
     return jsonify(
@@ -35,7 +58,7 @@ def get_info():
         weight = int(res['weight'])
     ) 
 
-def read_data(): 
+def read_temperature_data(): 
     date = datetime.now().strftime("%d/%m/%Y")
     data = pd.read_csv(str(pathlib.Path(__file__).parent.absolute()) + "/data1.csv", sep=";")
     for i in range(len(data.date)):
