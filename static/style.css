@@ -111,3 +111,58 @@ div.but_logout{
   from {transform: scale(0)} 
   to {transform: scale(1)}
 }
+
+.content {
+  display: flex;
+}
+
+.horizontal {
+  flex-direction: row;
+  justify-content: center;
+}
+
+.vertical {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 360px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: 4px;
+}
+
+.card h3 {
+  padding: 4px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.card h4 {
+  color: black;
+}
+
+.button {
+  max-width: 180px;
+}
+
+.h1 {
+  position: relative;
+  min-width: 180px;
+  padding: 10px 18px; 
+  background-color: #f0c60b; 
+  text-align: center;
+  display: inline-block;
+}
+
+.button1 {
+  width: 180px;
+  padding: 8px;
+  background-color: #4CAF50;
+  color: white;
+  margin: 8px;
+  border: none;
+}

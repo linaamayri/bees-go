@@ -9,6 +9,18 @@ main = Blueprint('main', __name__, template_folder="templates")
 def index():
     return render_template("index.html")
 
+@main.route("/installation")
+def installation():
+    return render_template("installation.html")
+    
+@main.route("/predateurs")
+def predateurs():
+    return render_template("predateurs.html")
+
+@main.route("/recolte")
+def recolte():
+    return render_template("recolte.html")
+
 @main.route("/about")
 def about():
     return "All about Flask"
