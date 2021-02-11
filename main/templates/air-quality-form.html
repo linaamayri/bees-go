@@ -7,33 +7,39 @@
       </div>
     </div>
     <br>
-    <form class="modal-content-create animate" action="" method="post">
-      <div class="container">
-        <img src="images/ava.jpg" alt="Avatar" style="width:100px;height:100px;">
-        <br>
-        <label for=" code postal : "><b>code postal :</b></label><br>
-        <input type=" text" placeholder="position of apiary" value="" id="postal_code_elem" onchange="updateAirData()"
-          required> <br>
-
-        <label for="Date_init : "><b>Date Init</b></label> <br>
-        <input type="date" value="" name="Date_init" required> <br> <br>
-
-        <table id="air_table_elem">
-          <!-- here goes our data! -->
-        </table>
-
+    <div class="container">
+      <div class="content vertical">
+        <img src="images/ava.jpg" alt="Avatar" class="responsive">
+        <div class="content horizontal">
+          <div class="margin-4">
+            <label for=" code postal : "><b>code postal :</b></label><br>
+            <input type=" text" placeholder="position of apiary" value="" id="postal_code_elem" required>
+          </div>
+          <div class="margin-4">
+            <label for="Date_init : "><b>Date Init</b></label> <br>
+            <input type="date" value="" id="date_elem" required> <br> <br>
+          </div>
+          <div class="margin-4">
+            <button type="button" onclick="updateAirData()" class="button1">Get</button>
+          </div>
+        </div>
       </div>
-      <div class="container" style="background-color:#f1f1f1">
-        <button type="button" onclick="document.getElementById('air-quality-form').style.display='none'"
-          class="cancelbtn">Cancel</button>
-      </div>
-    </form>
+      <table id="air_table_elem">
+        <!-- here goes our data! -->
+      </table>
+
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('air-quality-form').style.display='none'"
+        class="cancelbtn">Cancel</button>
+    </div>
   </div>
 </div>
 <script>
-  async function getAirData(postalCode) {
+  async function getAirData(postalCode, date) {
     const ret = await fetch('/api/v1/air?' + new URLSearchParams({
-      postalCode: postalCode
+      postalCode: postalCode,
+      date: date
     }))
     return ret.json()
   }
@@ -43,10 +49,11 @@
 
     // get air data
     const postalCode = document.getElementById('postal_code_elem').value
+    const date = document.getElementById('date_elem').value
     if (!postalCode || postalCode === '') {
       return
     }
-    res = await getAirData(postalCode)
+    res = await getAirData(postalCode, date)
     updateAirTable(res)
   }
 

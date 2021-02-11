@@ -166,3 +166,12 @@ div.but_logout{
   margin: 8px;
   border: none;
 }
+
+.responsive {
+  width: 100%;
+  height: auto;
+}
+
+.margin-4 {
+  margin:4px;
+}
