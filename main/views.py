@@ -28,15 +28,17 @@ def about():
 @main.route("/api/v1/air")
 def get_air():
     postal_code = int(request.args.get('postalCode'))
-    date = datetime.strptime(request.args.get('date'), "%Y-%m-%d")
-    res = read_air_data(postal_code, date)
+    date_from = datetime.strptime(request.args.get('dateFrom'), "%Y-%m-%d")
+    date_to = datetime.strptime(request.args.get('dateTo'), "%Y-%m-%d")
+    res = read_air_data(postal_code, date_from, date_to)
     return jsonify(res)
 
-def read_air_data(postal_code, date):
+def read_air_data(postal_code, date_from, date_to):
     data = pd.read_csv(str(pathlib.Path(__file__).parent.absolute()) + "/air.csv", sep=",")
     res = []
     for i in range(len(data.ninsee)):
-        if data.ninsee[i] == postal_code and pd.to_datetime(data.date[i], format='%d/%m/%Y') == date:
+        date = pd.to_datetime(data.date[i], format='%d/%m/%Y')
+        if data.ninsee[i] == postal_code and date >= date_from and date < date_to :
             res.append({
                 "date": str(data.date[i]),
                 "postalCode": int(data.ninsee[i]),

@@ -17,7 +17,11 @@
           </div>
           <div class="margin-4">
             <label for="Date_init : "><b>Date Init</b></label> <br>
-            <input type="date" value="" id="date_elem" required> <br> <br>
+            <input type="date" value="" id="date_from_elem" required> <br> <br>
+          </div>
+          <div class="margin-4">
+            <label for="Date_init : "><b>Date Init</b></label> <br>
+            <input type="date" value="" id="date_to_elem" required> <br> <br>
           </div>
           <div class="margin-4">
             <button type="button" onclick="updateAirData()" class="button1">Get</button>
@@ -36,24 +40,24 @@
   </div>
 </div>
 <script>
-  async function getAirData(postalCode, date) {
+  async function getAirData(postalCode, dateFrom, dateTo) {
     const ret = await fetch('/api/v1/air?' + new URLSearchParams({
       postalCode: postalCode,
-      date: date
+      dateFrom: dateFrom,
+      dateTo: dateTo
     }))
     return ret.json()
   }
 
   async function updateAirData() {
-    // clear data
-
     // get air data
     const postalCode = document.getElementById('postal_code_elem').value
-    const date = document.getElementById('date_elem').value
+    const dateFrom = document.getElementById('date_from_elem').value
+    const dateTo = document.getElementById('date_to_elem').value
     if (!postalCode || postalCode === '') {
       return
     }
-    res = await getAirData(postalCode, date)
+    res = await getAirData(postalCode, dateFrom, dateTo)
     updateAirTable(res)
   }
 
