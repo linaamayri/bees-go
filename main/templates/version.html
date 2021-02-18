@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Anton", sans-serif
+    }
+
+    body,
+    html {
+        height: 100%;
+        line-height: 1.2;
+    }
+
+    /* Full height image header */
+    .bgimg-1 {
+        background-position: center;
+        background-size: cover;
+        background-image: url("https://admin.illiwap.com/uploads/elfinder/@74053/ruches.jpg");
+        min-height: 100%;
+    }
+
+    .w3-bar .w3-button {
+        padding: 16px;
+    }
+</style>
+
+<body>
+
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <a href="#home" class="w3-bar-item w3-button w3-wide"><img src="images/bee.jpg" alt="Avatar"
+                    style="width:50px;height:50px;"></a>
+            <!-- Right-sided navbar links -->
+            <div class="w3-right w3-hide-small">
+                <a href="#hive_connect" class="w3-bar-item w3-button">HIVE CONNECT</a>
+                <a href="#previsions" class="w3-bar-item w3-button">PREVISIONS</a>
+                <a href="#qualite_air" class="w3-bar-item w3-button">QUALITE DE L'AIR</a>
+                <a href="#cadre" class="w3-bar-item w3-button"> CADRE</a>
+                <a href="#historique" class="w3-bar-item w3-button"> HISTORIQUE</a>
+                <a href="#conseils" class="w3-bar-item w3-button"> CONSEILS</a>
+            </div>
+            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+                onclick="w3_open()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
+        style="display:none" id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close
+            ×</a>
+        <a href="#hive_connect" onclick="w3_close()" class="w3-bar-item w3-button">HIVE CONNECT</a>
+        <a href="#previsions" onclick="w3_close()" class="w3-bar-item w3-button">PREVISIONS</a>
+        <a href="#qualite_air" onclick="w3_close()" class="w3-bar-item w3-button">QUALITE DE L'AIR</a>
+        <a href="#cadre" onclick="w3_close()" class="w3-bar-item w3-button">CADRE</a>
+        <a href="#historique" onclick="w3_close()" class="w3-bar-item w3-button">HISTORIQUE</a>
+        <a href="#conseils" onclick="w3_close()" class="w3-bar-item w3-button">CONSEILS</a>
+    </nav>
+
+    <!-- Header with full-height image -->
+    <header class="bgimg-1 w3-display-container " id="home">
+        <div class="w3-display-left w3-text-white" style="padding:20px">
+            <span class="w3-jumbo w3-hide-small"> BEES GO</span><br>
+            <span class="w3-large w3-hide-large w3-hide-medium"> BEES GO</span><br>
+            <span class="w3-xxlarge w3-hide-small"> hive application and prediction</span><br>
+            <span class="w3-large w3-hide-large w3-hide-medium"> hive application and prediction</span>
+        </div>
+    </header>
+
+    <!-- hive connect Section -->
+    <div class="w3-container w3-khaki" style="padding:230px 16px" id="hive_connect">
+        <h2 class="w3-center"> HIVE CONNECT </h2>
+        <h5 class="w3-center"> Gardez un oeil sur votre ruche grace aux capteurs connectés à BEES GO</h5><br>
+
+        <div class=" w3-right">
+            <h3>POIDS</h3>
+            <h4 id="weight_elem"></h4>
+        </div>
+        <div class=" w3-left">
+            <h3>TEMPERATURE</h3>
+            <h4 id="temperature_elem"></h4>
+        </div>
+
+    </div>
+    <!-- prevision Section -->
+    <div class="w3-container w3-pale-yellow" style="padding:200px 16px" id="previsions">
+        <h2 class="w3-center"> PREVISIONS </h2>
+        <h5 class="w3-center"> Choisissez votre département et l'année pour laquelle vous souhaitez une prédiction de
+            température</h5>
+        <!-- id="prevision-form" class="create_apiary">-->
+        <div class="modal-content animate">
+            <div class="imgcontainer">
+                <div>
+                    <span onclick="document.getElementById('prevision-form').style.display='none'" class="close"
+                        title="Close Modal">&times;</span>
+                </div>
+            </div>
+            <br>
+            <form class="modal-content-create animate" action="" method="post">
+                <div class="container">
+
+                    <div class="w3-center content vertical">
+                        <img src="images/prev1.png" alt="Avatar" width="800" height="500">
+                        <p></p>
+                        <img src="images/prev2.png" alt="Avatar" width="800" height="500">
+                        <p></p>
+                        <img src="images/prev3.png" alt="Avatar" width="800" height="500">
+                        <p></p>
+                        <img src="images/prev4.png" alt="Avatar" width="800" height="500">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Qualite air Section -->
+    <div class="w3-container w3-sand" style="padding:128px 16px" id="qualite_air">
+        <h2 class="w3-center">QUALITE DE L'AIR</h2>
+        <h5 class="w3-center"> Choisissez votre département et la durée pour laquelle vous souhaitez connaître la
+            qualité de l'air</h5>
+        <div id="air-quality-form" class="create_apiary">
+            <div class="modal-content animate">
+                <div class="imgcontainer">
+                    <div>
+                        <span onclick="document.getElementById('air-quality-form').style.display='none'" class="close"
+                            title="Close Modal">&times;</span>
+                    </div>
+                </div>
+                <br>
+                <div class=" w3-center">
+                    <img src="images/ava.jpg" alt="Avatar" width="700" height="500">
+                </div>
+                <div class="container">
+                    <div class=" content vertical">
+                        <div class="content horizontal">
+                            <div class="margin-4">
+                                <label for=" code postal : "><b>Code Postal :</b></label><br>
+                                <input type=" text" placeholder="position of apiary" value="" id="postal_code_elem"
+                                    required>
+                            </div>
+                            <div class="margin-4">
+                                <label for="Date_init : "><b>Date Initiale</b></label> <br>
+                                <input type="date" value="" id="date_from_elem" required>
+                            </div>
+                            <div class="margin-4">
+                                <label for="Date_init : "><b>Date Finale</b></label> <br>
+                                <input type="date" value="" id="date_to_elem" required> <br> <br>
+                            </div>
+                            <div class="margin-4">
+                                <button type="button" onclick="updateAirData()" class="button1">Get</button>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="air_table_elem">
+                        <!-- here goes our data! -->
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <script>
+            async function getAirData(postalCode, dateFrom, dateTo) {
+                const ret = await fetch('/api/v1/air?' + new URLSearchParams({
+                    postalCode: postalCode,
+                    dateFrom: dateFrom,
+                    dateTo: dateTo
+                }))
+                return ret.json()
+            }
+
+            async function updateAirData() {
+                // get air data
+                const postalCode = document.getElementById('postal_code_elem').value
+                const dateFrom = document.getElementById('date_from_elem').value
+                const dateTo = document.getElementById('date_to_elem').value
+                if (!postalCode || postalCode === '') {
+                    return
+                }
+                res = await getAirData(postalCode, dateFrom, dateTo)
+                updateAirTable(res)
+            }
+
+            function generateTableHead(table, data) {
+                let thead = table.createTHead();
+                let row = thead.insertRow();
+                for (let key of data) {
+                    let th = document.createElement("th");
+                    let text = document.createTextNode(key);
+                    th.appendChild(text);
+                    row.appendChild(th);
+                }
+            }
+
+            function generateTable(table, data) {
+                for (let element of data) {
+                    let row = table.insertRow();
+                    for (key in element) {
+                        let cell = row.insertCell();
+                        let text = document.createTextNode(element[key]);
+                        cell.appendChild(text);
+                    }
+                }
+            }
+
+            function updateAirTable(data) {
+                let table = document.getElementById('air_table_elem')
+                table.innerHTML = '';
+                if (!data || data.length === 0) {
+                    return
+                }
+                let columns = Object.keys(data[0]);
+                generateTableHead(table, columns);
+                generateTable(table, data);
+            }
+        </script>
+    </div>
+
+
+    <!-- Cadre Section -->
+    <div class="w3-container w3-pale-yellow" style="padding:260px 16px" id="cadre">
+        <h2 class="w3-center">CADRE</h2>
+        <div id="cadre-form" class="create_apiary">
+            <div class="modal-content animate">
+                <div class="imgcontainer">
+                    <div>
+                        <span onclick="document.getElementById('cadre-form').style.display='none'" class="close"
+                            title="Close Modal">&times;</span>
+                    </div>
+                </div>
+                <br>
+                <form class="modal-content-create animate" action="" method="post">
+                    <div class="container">
+
+
+                    </div>
+                    <div class="container" style="background-color:#f1f1f1">
+                        <button type="submit" class="button_create" name="submit" value="Submit">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historique Section -->
+    <div class="w3-container w3-center w3-light-grey" style="padding:260px 16px" id="historique">
+        <h2>HISTORIQUE</h2>
+        <div id="history-form" class="create_apiary">
+            <div class="modal-content animate">
+                <div>
+                    <div class="margin-4">
+                        <label for="Date_init : "><b>Date Init</b></label> <br>
+                        <input type="date" value="" id="weight_date_from_elem" value="2/2/2021" required> <br> <br>
+                    </div>
+                    <div class="margin-4">
+                        <label for="Date_init : "><b>Date Init</b></label> <br>
+                        <input type="date" value="" id="weight_date_to_elem" required> <br> <br>
+                    </div>
+                    <div class="margin-4">
+                        <button type="button" onclick="updateWeightData()" class="button1">Get</button>
+                    </div>
+                </div>
+                <form class="modal-content-create animate" action="" method="post">
+                    <div class="content vertical">
+                        <canvas id="line-chart" width="800" height="450"></canvas>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            async function getWeightData(dateFrom, dateTo) {
+                const ret = await fetch('/api/v1/weight?' + new URLSearchParams({
+                    dateFrom: dateFrom,
+                    dateTo: dateTo
+                }))
+                return ret.json()
+            }
+
+            async function updateWeightData() {
+                const dateFrom = document.getElementById('weight_date_from_elem').value
+                const dateTo = document.getElementById('weight_date_to_elem').value
+                res = await getWeightData(dateFrom, dateTo)
+                updateWeightChart(res)
+            }
+
+            function updateWeightChart(data) {
+                new Chart(document.getElementById("line-chart"), {
+                    type: 'line',
+                    data: {
+                        labels: data.map(function (el) { return el.date; }),
+                        datasets: [
+                            {
+                                label: "Poid",
+                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                                data: data.map(function (el) { return el.value; })
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: false,
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Poid'
+                        }
+                    }
+                });
+            }
+        </script>
+    </div>
+
+    <!-- Conseils Section -->
+    <div class="w3-container w3-grey" style="padding:220px 16px" id="conseils">
+        <h2 class="w3-center">CONSEILS</h2>
+        <div id="conseil-form" class="create_apiary">
+            <div class="modal-content animate">
+                <div class="imgcontainer">
+                    <div>
+                        <span onclick="document.getElementById('conseil-form').style.display='none'" class="close"
+                            title="Close Modal">&times;</span>
+                    </div>
+                </div>
+                <br>
+                <form class="modal-content-create animate" action="" method="post">
+
+                    <div class="container " style="background-color:#f1f1f1">
+                        <div class="w3-center horizontal w3-grey">
+                            <input class="button1" type="button" onclick="window.location.href = 'installation';"
+                                value="Installation de la ruche" />
+                            <input class="button1" type="button" onclick="window.location.href = 'predateurs';"
+                                value="Prédateurs et maladies" />
+                            <input class="button1" type="button" onclick="window.location.href = 'recolte';"
+                                value="Récolte du miel" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+
+
+</body>
+
+</html>
