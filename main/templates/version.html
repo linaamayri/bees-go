@@ -108,25 +108,25 @@
         <div class="modal-content animate">
             <div class="imgcontainer">
                 <div>
-                    <span onclick="document.getElementById('prevision-form').style.display='none'" class="close"
+                    <span onclick="window.location.href = 'prevision';" class="close"
                         title="Close Modal">&times;</span>
                 </div>
             </div>
             <br>
-            <form class="modal-content-create animate" action="" method="post">
-                <div class="container">
+            <div class="container">
 
-                    <div class="w3-center content vertical">
-                        <img src="images/prev1.png" alt="Avatar" width="800" height="500">
-                        <p></p>
-                        <img src="images/prev2.png" alt="Avatar" width="800" height="500">
-                        <p></p>
-                        <img src="images/prev3.png" alt="Avatar" width="800" height="500">
-                        <p></p>
-                        <img src="images/prev4.png" alt="Avatar" width="800" height="500">
-                    </div>
+                <div class="w3-center content vertical">
+                    <button class="button" onclick="window.location.href = 'prevision';">PREVISION</button>
+                    <br>
+                    <img src="images/prev1.png" alt="Avatar" width="800" height="500">
+                    <p></p>
+                    <img src="images/prev2.png" alt="Avatar" width="800" height="500">
+                    <p></p>
+                    <img src="images/prev3.png" alt="Avatar" width="800" height="500">
+                    <p></p>
+                    <img src="images/prev4.png" alt="Avatar" width="800" height="500">
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -267,22 +267,20 @@
             <div class="modal-content animate">
                 <div>
                     <div class="margin-4">
-                        <label for="Date_init : "><b>Date Init</b></label> <br>
-                        <input type="date" value="" id="weight_date_from_elem" value="2/2/2021" required> <br> <br>
+                        <label for="Date_init : "><b>Start date</b></label> <br>
+                        <input type="date" id="weight_date_from_elem" value="2021-02-02" required>
                     </div>
                     <div class="margin-4">
-                        <label for="Date_init : "><b>Date Init</b></label> <br>
-                        <input type="date" value="" id="weight_date_to_elem" required> <br> <br>
+                        <label for="Date_init : "><b>End date</b></label> <br>
+                        <input type="date" id="weight_date_to_elem" required value="2021-02-20">
                     </div>
                     <div class="margin-4">
                         <button type="button" onclick="updateWeightData()" class="button1">Get</button>
                     </div>
                 </div>
-                <form class="modal-content-create animate" action="" method="post">
-                    <div class="content vertical">
-                        <canvas id="line-chart" width="800" height="450"></canvas>
-                    </div>
-                </form>
+                <div class="content vertical">
+                    <canvas id="line-chart" width="800" height="450"></canvas>
+                </div>
             </div>
         </div>
         <script>

@@ -1,6 +1,8 @@
 from __future__ import print_function
 import sys
 from flask import Blueprint, request, url_for, redirect, render_template, flash, jsonify, current_app, session 
+from flask_session import Session
+from flask_simple_geoip import SimpleGeoIP
 from datetime import date
 from datetime import datetime
 import pandas as pd
@@ -14,14 +16,14 @@ import pickle
 
 # Read the data from the file
 main = Blueprint('main', __name__, template_folder="templates")
-#with open(str(pathlib.Path(__file__).parent.absolute())+ '/model/pickled_departments.pkl', 'rb') as fid:
-#    departments = pickle.load(fid)
-#with open(str(pathlib.Path(__file__).parent.absolute())+ '/model/pickled_x_test.pkl', 'rb') as fid:
-#    x_test = pickle.load(fid)
-#with open(str(pathlib.Path(__file__).parent.absolute())+ '/model/pickled_model.pkl', 'rb') as fid:
-#    model = pickle.load(fid)
-#with open(str(pathlib.Path(__file__).parent.absolute())+ '/model/pickled_scal.pkl', 'rb') as fid:
-#    scaler = pickle.load(fid)
+with open(str(pathlib.Path(__file__).parent.absolute())+ '/model/pickled_departments.pkl', 'rb') as fid:
+    departments = pickle.load(fid)
+with open(str(pathlib.Path(__file__).parent.absolute())+ '/model/pickled_x_test.pkl', 'rb') as fid:
+    x_test = pickle.load(fid)
+with open(str(pathlib.Path(__file__).parent.absolute())+ '/model/pickled_model.pkl', 'rb') as fid:
+   model = pickle.load(fid)
+with open(str(pathlib.Path(__file__).parent.absolute())+ '/model/pickled_scal.pkl', 'rb') as fid:
+   scaler = pickle.load(fid)
     
 
 # multi-step future forecast
@@ -53,6 +55,11 @@ def create_dates(start,days):
 
 @main.route("/")
 def index():
+    seven_day_forecast_svr = create_dates('2021-01-31',31) 
+    for i in range(len(departments)):
+        seven_days_svr = forecast_svr(x_test[i], 31, model[i], 60, scaler[i])            
+        seven_day_forecast_svr[departments[i]] = np.array(seven_days_svr) 
+    print(seven_day_forecast_svr)
     return render_template("version.html")
 
 @main.route("/installation")
@@ -145,10 +152,10 @@ def ee():
 
 @main.route("/prevision")
 def prevision():
-    #session['sequence'] = 0
-    #seg = session.get('sequence')
-    #simple_geoip = SimpleGeoIP(current_app)
-    #geoip_data = simple_geoip.get_geoip_data()
+    session['sequence'] = 0
+    seg = session.get('sequence')
+    simple_geoip = SimpleGeoIP(current_app)
+    geoip_data = simple_geoip.get_geoip_data()
 
     depart = 'Val-de-Marne'
     currentdate = datetime.today().strftime('%Y-%m-%d')
@@ -181,5 +188,6 @@ def prevision():
     seven_forcats = seven_forcats.tail(7)
     demain_forcast = demain_forcast.tail(1)
     current_forecast = current_forecast.tail(1)
-    print(seven_forcats.tail(7))
-    return render_template("/prevision/homePrevision.html", prevision=current_forecast)
+    print(current_forecast)
+    #print(seven_forcats.tail(7))
+    return render_template("/homePrevision.html", date = currentdate, tomorrow = demain_forcast.to_html(), fifteen_days= quinze_forcats.to_html(), current_forecast = current_forecast.to_html(), seven_forcats = seven_forcats.to_html(), thirty_days = tente_forcats.to_html())
