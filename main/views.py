@@ -152,6 +152,11 @@ def ee():
 
 @main.route("/prevision")
 def prevision():
+    return render_template("/homePrevision.html")
+
+
+@main.route("/api/v1/forecast")
+def get_forecast_data():
     session['sequence'] = 0
     seg = session.get('sequence')
     simple_geoip = SimpleGeoIP(current_app)
@@ -190,4 +195,21 @@ def prevision():
     current_forecast = current_forecast.tail(1)
     print(current_forecast)
     #print(seven_forcats.tail(7))
-    return render_template("/homePrevision.html", date = currentdate, tomorrow = demain_forcast.to_html(), fifteen_days= quinze_forcats.to_html(), current_forecast = current_forecast.to_html(), seven_forcats = seven_forcats.to_html(), thirty_days = tente_forcats.to_html())
+    return {
+        'current':current_forecast.to_json(),
+        'tomorrow':demain_forcast.to_json(),
+        'seven_days':seven_forcats.to_json(),
+        'fifteen_days':quinze_forcats.to_json(),
+        'thirty_days':tente_forcats.to_json()
+    }
+
+
+    #return render_template("/homePrevision.html", 
+    #date = currentdate, 
+    #tomorrow = demain_forcast.to_html(), 
+    #fifteen_days= quinze_forcats.to_html(), 
+    #current_forecast = current_forecast.to_html(), 
+    #seven_forcats = seven_forcats.to_html(), 
+    #thirty_days = tente_forcats.to_html(),
+    #fifteen_days_json= quinze_forcats.to_json()
+    #)

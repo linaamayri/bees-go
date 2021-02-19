@@ -40,7 +40,7 @@
     <div class="container" style="padding-bottom: 20px; padding-top: 20px;">
       <h3>Méteo Val de Marne </h3>
 
-      
+
 
     </div>
 
@@ -49,19 +49,29 @@
         <!-- Tabs content -->
         <div class="tab-content" id="ex2-content">
           <div class="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel" aria-labelledby="ex3-tab-1">
-            {{ current_forecast|safe }}
+            <div class="content vertical">
+              <canvas id="current-chart" width="800" height="450"></canvas>
+            </div>
           </div>
           <div class="tab-pane fade" id="ex3-tabs-2" role="tabpanel" aria-labelledby="ex3-tab-2">
-            {{ tomorrow|safe }}
+            <div class="content vertical">
+              <canvas id="forecast-1-chart" width="800" height="450"></canvas>
+            </div>
           </div>
           <div class="tab-pane fade" id="ex3-tabs-3" role="tabpanel" aria-labelledby="ex3-tab-3">
-            {{seven_forcats|safe}}
+            <div class="content vertical">
+              <canvas id="forecast-7-chart" width="800" height="450"></canvas>
+            </div>
           </div>
           <div class="tab-pane fade" id="ex3-tabs-4" role="tabpanel" aria-labelledby="ex3-tab-4">
-            {{ fifteen_days|safe }}
+            <div class="content vertical">
+              <canvas id="forecast-15-chart" width="800" height="450"></canvas>
+            </div>
           </div>
           <div class="tab-pane fade" id="ex3-tabs-5" role="tabpanel" aria-labelledby="ex3-tab-5">
-            {{ thirty_days|safe }}
+            <div class="content vertical">
+              <canvas id="forecast-30-chart" width="800" height="450"></canvas>
+            </div>
           </div>
         </div>
       </div>
@@ -71,6 +81,76 @@
 
   <!-- MDB -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script>
+    async function getForecast(dateFrom, dateTo) {
+      const ret = await fetch('/api/v1/forecast')
+      return ret.json()
+    }
+
+    async function run() {
+      const res = await getForecast()
+      drawChart(res.current, 'current', "current-chart")
+      drawChart(res.tomorrow, 'tomorrow', "forecast-1-chart")
+      drawChart(res.seven_days, '7 days', "forecast-7-chart")
+      drawChart(res.fifteen_days, '15 days', "forecast-15-chart")
+      drawChart(res.thirty_days, '30 days', "forecast-30-chart")
+    }
+
+
+    function drawChart(data, title, id) {
+      data = JSON.parse(data)
+      let dataset = []
+      let keys = []
+      let added = false
+      for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+          const item = data[key]
+          const values = []
+          for (let kv in item) {
+            if (item.hasOwnProperty(kv)) {
+              values.push(item[kv])
+              if (!added) {
+                keys.push((new Date(parseInt(kv)).toDateString()))
+              }
+            }
+          }
+          added = true
+          dataset.push({
+            fill: false,
+            //borderColor: getRandomColor(),
+            label: key,
+            data: values
+          })
+        }
+      }
+      new Chart(document.getElementById(id), {
+        type: 'line',
+        data: {
+          labels: keys,
+          datasets: dataset
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: title
+          }
+        }
+      });
+    }
+
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF'.split('');
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    run()
+  </script>
 </body>
 
 </html>
